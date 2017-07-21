@@ -7,6 +7,6 @@ Gem::Specification.new do |s|
    s.authors = ["O. A. Malik"]
    s.email = 'oam@cal.berkeley.edu'
    s.files = ["lib/propublica.rb"]
-   s.homepage = 'http://rubygems.org/gems/propublica'
+   s.homepage = 'https://github.com/omarcodex/propublica-gem'
    s.license = 'MIT'
 end

@@ -1,4 +1,4 @@
-# propublica-gem
+# ProPublica Ruby gem
 
 ### What?
 A Ruby wrapper for the ProPublica Congress API.
@@ -10,7 +10,7 @@ This gem makes it easier for Ruby developers to use the awesome data from ProPub
 
 To get started, include the gem in your file:
 
-* `gem install propublica` then use `require 'propublica'` in your program. [NOTE: For development mode, please see `contributing.md`]
+* `gem install ProPublica` then use `require 'propublica'` in your program. [NOTE: For collaborating developers, please see `contributing.md`]
 
 * Initialize a controller object with your (given) API key, like so:
 `client = ProPublica.new('API_KEY')`
