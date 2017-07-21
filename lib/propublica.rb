@@ -105,7 +105,7 @@ class ProPublica
         end
 
         raw_member_data = JSON.parse(response.body)
-        return raw_member_data["results"].first
+        return raw_member_data["results"].first # NOTE: This is idiosyncratic per endpoint structure.
     else
       puts "Please configure your API key."
       return false
