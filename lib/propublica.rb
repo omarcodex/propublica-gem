@@ -89,4 +89,27 @@ class ProPublica
      end
    end
 
+   def get_member(congressional_id)
+
+     if @api_key != nil && @api_key.length > 10 # To-Do: Add validation.
+        uri = URI.parse("https://api.propublica.org/congress/v1/members/#{congressional_id}.json")
+
+        request = Net::HTTP::Get.new(uri)
+        request["X-Api-Key"] = @api_key
+        req_options = {
+          use_ssl: uri.scheme == "https",
+        }
+
+        response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+          http.request(request)
+        end
+
+        raw_member_data = JSON.parse(response.body)
+        return raw_member_data["results"].first
+    else
+      puts "Please configure your API key."
+      return false
+    end
+   end
+
 end
