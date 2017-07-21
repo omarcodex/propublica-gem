@@ -40,8 +40,8 @@ class ProPublica
       end
     end
 
-    def get_senate_members(house_number)
-      # Returns an array of senate member objects.
+    def get_senate_members(congress_number)
+      # Returns an array of senate member hash objects.
       if @api_key != nil
         raw_senate_members_data = JSON.parse(self.get_response_from_API(house_number,"senate").body)
         senate_members = raw_senate_members_data["results"].first["members"]
@@ -63,4 +63,28 @@ class ProPublica
     else
       return "Please configure your API key."
   end
+
+  def get_house_members(congress_number)
+    # Returns an array of house member hash objects.
+    if @api_key != nil
+      raw_house_members_data = JSON.parse(self.get_response_from_API(house_number,"house").body)
+      house_members = raw_house_members_data["results"].first["members"]
+      all_members = []
+
+      house_members.each do |hash|
+        member = {}
+        member[:first_name] = hash["first_name"]
+        member[:last_name] = hash["last_name"]
+        member[:link] = hash["api_uri"]
+        member[:party] = hash["party"]
+        member[:state] = hash["state"]
+        member[:next_election] = hash["next_election"]
+        member[:twitter_account] = hash["twitter_account"]
+        all_members << member
+      end
+      return all_members
+    end
+  else
+    return "Please configure your API key."
+end
 end
