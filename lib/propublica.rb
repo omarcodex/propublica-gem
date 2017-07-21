@@ -20,7 +20,7 @@ class ProPublica
 
    def get_response_from_API(congress, chamber)
 
-     if @api_key != nil
+     if @api_key != nil && @api_key.length > 10 # To-Do: Add validation.
         uri = URI.parse("https://api.propublica.org/congress/v1/#{congress}/#{chamber}/members.json")
 
         request = Net::HTTP::Get.new(uri)
@@ -34,14 +34,15 @@ class ProPublica
         end
         return response
     else
-      return "Please configure your API key."
+      puts "Please configure your API key."
+      return false
     end
    end
 
    def get_senate_members(congress_number)
       # Returns an array of senate member hash objects.
       # TO-DO: Be able to select and retrieve all desired information keys (e.g., twitter_account).
-      # if @api_key != nil
+      if self.get_response_from_API(congress_number,"senate")
         raw_senate_members_data = JSON.parse(self.get_response_from_API(congress_number,"senate").body)
         senate_members = raw_senate_members_data["results"].first["members"]
         all_members = []
@@ -58,15 +59,15 @@ class ProPublica
           all_members << member
         end
         return all_members
-      # else
-      # return "Please configure your API key."
-      # end
+      else
+      return "Please configure your API key."
+      end
     end
 
    def get_house_members(congress_number)
     # Returns an array of house member hash objects.
     # TO-DO: Be able to select and retrieve all desired information keys (e.g., twitter_account).
-    #  if @api_key != nil
+    if self.get_response_from_API(congress_number,"house")
       raw_house_members_data = JSON.parse(self.get_response_from_API(congress_number,"house").body)
       house_members = raw_house_members_data["results"].first["members"]
       all_members = []
@@ -83,9 +84,9 @@ class ProPublica
           all_members << member
         end
       return all_members
-    #  else
-    #    return "Please configure your API key."
-    #  end
+     else
+       return "Please configure your API key."
+     end
    end
 
 end
