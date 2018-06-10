@@ -42,8 +42,8 @@ class ProPublica
    def get_senate_members(congress_number)
       # Returns an array of senate member hash objects.
       # TO-DO: Be able to select and retrieve all desired information keys (e.g., twitter_account).
-      if self.get_response_from_API(congress_number,"senate")
-        raw_senate_members_data = JSON.parse(self.get_response_from_API(congress_number,"senate").body)
+      if response = self.get_response_from_API(congress_number,"senate")
+        raw_senate_members_data = JSON.parse(response.body)
         senate_members = raw_senate_members_data["results"].first["members"]
         all_members = []
 
@@ -67,8 +67,8 @@ class ProPublica
    def get_house_members(congress_number)
     # Returns an array of house member hash objects.
     # TO-DO: Be able to select and retrieve all desired information keys (e.g., twitter_account).
-    if self.get_response_from_API(congress_number,"house")
-      raw_house_members_data = JSON.parse(self.get_response_from_API(congress_number,"house").body)
+    if response = self.get_response_from_API(congress_number,"house")
+      raw_house_members_data = JSON.parse(response.body)
       house_members = raw_house_members_data["results"].first["members"]
       all_members = []
 
